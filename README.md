@@ -1,37 +1,52 @@
-# Web Streamer
-A mod to display live streams in-game.
+# WebStreamer (TheGentleSuits remake)
 
-[![Modrinth Downloads](https://img.shields.io/modrinth/dt/webstreamer?style=flat-square&label=Modrinth%20Downloads)](https://modrinth.com/mod/webstreamer)
-[![CurseForge Downloads](https://img.shields.io/curseforge/dt/628932?style=flat-square&label=CurseForge%20Downloads)](https://www.curseforge.com/minecraft/mc-mods/webstreamer)
+Client-side Fabric mod for Minecraft **26.1.2**: renders Twitch / raw HLS streams as virtual
+screens in the world, entirely driven by the server. This is a blockless remake of
+[fabric-webstreamer](https://github.com/mindstorm38/fabric-webstreamer) by Theo Rozier
+(video/audio pipeline adapted from it, LGPL-3.0) designed for the TheGentleSuits viewing-party
+server.
 
-## Web Display block
-This mod adds a single item -for now-, called "Web Display". It's a resizable and directional block that allows you to 
-display [HLS] video streams but also static images. This type of stream is mostly used by [Twitch]. The Web Display 
-block supports two modes: raw HLS url (.m3u8 file) and Twitch channel with quality. The audio distance and volume is 
-configurable in the display configuration as well as its size.
+## How it works
 
-## Supported systems
-For now, and in order to distribute a single JAR file, this mod supports a limited set of systems because of the size 
-of the [FFmpeg] library and other native binaries that needs to be bundled with it:
-- Linux arm64
-- Linux x86_64
-- OSX arm64 (M1 support)
-- OSX x86_64
-- Windows x86_64
+- The mod registers **no blocks, items or GUIs**. It is inert on servers that don't drive it.
+- It registers a receiver for the `webstreamer:display_sync` plugin channel; that registration
+  announces the channel to any server (vanilla `minecraft:register`), which is how the
+  ViewingParty Paper plugin detects modded players.
+- The server sends the display list (position, orientation, size, source, audio settings) as
+  JSON; the wire format is specified in `minecraft/docs/webstreamer-bridge-protocol.md` of the
+  TheGentleSuits monorepo (protocol v1). Staff manage displays with `/display` on the server.
+- The client resolves Twitch channels via the GraphQL API, follows the HLS playlist, decodes
+  segments with FFmpeg (JavaCV) and draws each display as a textured quad with positional
+  audio (OpenAL).
 
-If your platform is not supported, please open an issue on GitHub, we need to know which systems are missing. However, 
-x86 (32bits) systems might never be supported, or only in a separated JAR file.
+## Building
 
-## Supported languages
-This project uses languages files for user interface texts, and currently supports **french (france)** and **english 
-(us)**.
+```bash
+./gradlew build        # produces build/libs/webstreamer-<version>.jar
+./gradlew runClient    # dev client
+```
 
-## Problems reporting
-The technology behind it is very complicated to get the video playing at the right frame rate with a synchronized audio.
-This might not work for all of you, so if you encounter problems, please report them on the [issue tracker] with the 
-logs file of the session that didn't work.
+The distributable jar bundles JavaCV/FFmpeg natives for linux-x86_64, linux-arm64,
+windows-x86_64, macosx-x86_64 and macosx-arm64 (~130 MB). To slim a platform-specific build,
+remove entries from `nativePlatforms` in `build.gradle`.
 
-[HLS]: https://fr.wikipedia.org/wiki/HTTP_Live_Streaming
-[Twitch]: https://www.twitch.tv
-[FFmpeg]: https://ffmpeg.org/
-[issue tracker]: https://github.com/mindstorm38/fabric-webstreamer/issues
+Toolchain: Java 25, Gradle 9.5, fabric-loom 1.17, Fabric Loader ≥ 0.19, Fabric API.
+
+## Runtime verification checklist
+
+Compile-verified against Minecraft 26.1.2 mojmap; the following need an in-game pass after any
+significant change:
+
+- [ ] Join the viewing-party server → server log shows "WebStreamer mod detected".
+- [ ] `/display create 16 9` + `/display twitch <channel>` → quad renders, stream plays.
+- [ ] Idle display (no source) renders as a black quad.
+- [ ] Audio attenuates with distance and follows `audio` settings.
+- [ ] Two displays with the same source share one decode pipeline (single log allocation).
+- [ ] Dimension change / disconnect cleans up layers (no leaked sound or texture).
+- [ ] `LevelRenderEvents.COLLECT_SUBMITS` runs on the render thread (no
+      `assertOnRenderThread` failures from texture upload).
+
+## License
+
+LGPL-3.0 (inherited from fabric-webstreamer — see `LICENSE`). Original pipeline by
+Theo Rozier (Mindstorm38).
