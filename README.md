@@ -32,6 +32,12 @@ remove entries from `nativePlatforms` in `build.gradle`.
 
 Toolchain: Java 25, Gradle 9.5, fabric-loom 1.17, Fabric Loader ≥ 0.19, Fabric API.
 
+## Releasing
+
+CI builds every push/PR; pushing a `v*` tag publishes to CurseForge and GitHub
+Releases. See [docs/RELEASING.md](docs/RELEASING.md) for the one-time CurseForge
+setup and the release procedure.
+
 ## Runtime verification checklist
 
 Compile-verified against Minecraft 26.1.2 mojmap; the following need an in-game pass after any
