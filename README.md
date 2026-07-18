@@ -19,6 +19,12 @@ server.
   segments with FFmpeg (JavaCV) and draws each display as a textured quad with positional
   audio (OpenAL).
 
+## Installing (players)
+
+Not a developer, just want to see the screens on the server? See
+[docs/INSTALL.md](docs/INSTALL.md) for step-by-step instructions (official Fabric launcher,
+CurseForge App, or Lunar Client).
+
 ## Building
 
 ```bash
