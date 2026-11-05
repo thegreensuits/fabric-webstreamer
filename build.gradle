@@ -42,6 +42,24 @@ dependencies {
     runtimeOnly "org.bytedeco:ffmpeg:${project.ffmpeg_version}:windows-x86_64"
 }
 
+// CurseForge rejects any upload that holds a .exe or .bat file. The FFmpeg native jars ship the
+// ffmpeg and ffprobe command-line programs beside the libraries; the mod only loads the libraries
+// through JavaCV and never runs a program, so they are dropped from the jars nested in the mod.
+def ffmpegPrograms = ['ffmpeg', 'ffmpeg.exe', 'ffprobe', 'ffprobe.exe']
+tasks.named('processIncludeJars') {
+    doLast {
+        outputs.files.asFileTree.matching { include 'ffmpeg-*.jar' }.each { nested ->
+            java.nio.file.FileSystems.newFileSystem(nested.toPath()).withCloseable { fs ->
+                java.nio.file.Files.walk(fs.getPath('/')).withCloseable { paths ->
+                    paths.filter { java.nio.file.Files.isRegularFile(it) && it.fileName.toString() in ffmpegPrograms }
+                            .toList()
+                            .each { java.nio.file.Files.delete(it) }
+                }
+            }
+        }
+    }
+}
+
 processResources {
     inputs.property 'version', project.version
 
