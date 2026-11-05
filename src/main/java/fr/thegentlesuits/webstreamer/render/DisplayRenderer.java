@@ -103,7 +103,7 @@ public class DisplayRenderer {
                 renderType = layer.renderType();
                 if (distSq < MAX_TITLE_DISTANCE * MAX_TITLE_DISTANCE) {
                     display.tickTitleRefresh(WebStreamerClient.LAYERS.getResources().getExecutor());
-                    this.submitTitle(ctx, display, cameraPos, camera, distSq);
+                    this.submitTitle(ctx, display, cameraPos, camera);
                 }
             } else {
                 // Idle (or still resolving): black placeholder quad.
@@ -130,7 +130,7 @@ public class DisplayRenderer {
      * attachment's y), so only the anchor translation and the offset are needed here.
      */
     private void submitTitle(LevelRenderContext ctx, ClientDisplay display, Vec3 cameraPos,
-                             CameraRenderState camera, double distSq) {
+                             CameraRenderState camera) {
 
         String title = display.getStreamTitle();
         if (title == null || title.isBlank()) {
@@ -151,7 +151,7 @@ public class DisplayRenderer {
         poseStack.translate(pos.getX() + 0.5 - cameraPos.x, pos.getY() + 0.5 - cameraPos.y,
                 pos.getZ() + 0.5 - cameraPos.z);
         ctx.submitNodeCollector().submitNameTag(poseStack, new Vec3(0.0, offsetY, 0.0), 0,
-                Component.literal(title), true, FULL_BRIGHT, distSq, camera);
+                Component.literal(title), true, FULL_BRIGHT, camera);
         poseStack.popPose();
 
     }
@@ -171,15 +171,15 @@ public class DisplayRenderer {
         }
 
         switch (display.facing) {
-            case SOUTH -> poseStack.mulPose(ROTATE_180);
-            case EAST -> poseStack.mulPose(ROTATE_270);
-            case WEST -> poseStack.mulPose(ROTATE_90);
+            case SOUTH -> poseStack.rotate(ROTATE_180);
+            case EAST -> poseStack.rotate(ROTATE_270);
+            case WEST -> poseStack.rotate(ROTATE_90);
             default -> { }
         }
 
         switch (display.attachment) {
-            case FLOOR -> poseStack.mulPose(ROTATE_FLOOR);
-            case CEILING -> poseStack.mulPose(ROTATE_CEILING);
+            case FLOOR -> poseStack.rotate(ROTATE_FLOOR);
+            case CEILING -> poseStack.rotate(ROTATE_CEILING);
             default -> { }
         }
 

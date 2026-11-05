@@ -1,6 +1,6 @@
 # WebStreamer (TheGentleSuits remake)
 
-Client-side Fabric mod for Minecraft **26.1.2**: renders Twitch / raw HLS streams as virtual
+Client-side Fabric mod for Minecraft **26.3**: renders Twitch / raw HLS streams as virtual
 screens in the world, entirely driven by the server. This is a blockless remake of
 [fabric-webstreamer](https://github.com/mindstorm38/fabric-webstreamer) by Theo Rozier
 (video/audio pipeline adapted from it, LGPL-3.0) designed for the TheGentleSuits viewing-party
@@ -36,7 +36,7 @@ The distributable jar bundles JavaCV/FFmpeg natives for linux-x86_64, linux-arm6
 windows-x86_64, macosx-x86_64 and macosx-arm64 (~130 MB). To slim a platform-specific build,
 remove entries from `nativePlatforms` in `build.gradle`.
 
-Toolchain: Java 25, Gradle 9.5, fabric-loom 1.17, Fabric Loader ≥ 0.19, Fabric API.
+Toolchain: Java 25, Gradle 9.5, fabric-loom 1.17, Fabric Loader ≥ 0.20, Fabric API.
 
 ## Releasing
 
@@ -46,7 +46,7 @@ setup and the release procedure.
 
 ## Runtime verification checklist
 
-Compile-verified against Minecraft 26.1.2 mojmap; the following need an in-game pass after any
+Compile-verified against Minecraft 26.3 mojmap; the following need an in-game pass after any
 significant change:
 
 - [ ] Join the viewing-party server → server log shows "WebStreamer mod detected".

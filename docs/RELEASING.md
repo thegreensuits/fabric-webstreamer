@@ -41,7 +41,7 @@ CI/CD lives in `.github/workflows/`:
    ```
 
 4. The Release workflow builds the jar, uploads it to CurseForge (game version
-   26.1.2, loader Fabric, Java 25 — from the workflow and `fabric.mod.json`) and
+   26.3, loader Fabric, Java 25 — from the workflow and `fabric.mod.json`) and
    creates the GitHub Release with an auto-generated changelog.
 
 If the CurseForge upload fails (e.g. secrets not configured yet), the GitHub

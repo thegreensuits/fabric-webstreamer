@@ -10,7 +10,7 @@ asks for it).
 
 ## What you need
 
-- **Minecraft version**: 26.1.2
+- **Minecraft version**: 26.3
 - **Mod loader**: Fabric
 - **Also required**: Fabric API (a separate, very common library mod)
 - **Java**: 25 or newer
@@ -27,12 +27,12 @@ failed when the game starts.
 This is the most reliable method and the one the mod is built/tested against.
 
 1. **Install Fabric Loader**: go to [fabricmc.net/use](https://fabricmc.net/use), download the
-   installer, run it, select Minecraft version **26.1.2**, and click *Install*. This creates a
-   "fabric-loader-26.1.2" profile in your official Minecraft Launcher.
-2. **Install Fabric API**: download the Fabric API `.jar` for **26.1.2** from
+   installer, run it, select Minecraft version **26.3**, and click *Install*. This creates a
+   "fabric-loader-26.3" profile in your official Minecraft Launcher.
+2. **Install Fabric API**: download the Fabric API `.jar` for **26.3** from
    [Modrinth](https://modrinth.com/mod/fabric-api) or
    [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fabric-api) (pick the file whose
-   game version says 26.1.2 and loader says Fabric).
+   game version says 26.3 and loader says Fabric).
 3. **Download WebStreamer**: grab the `webstreamer-<version>.jar` from the
    [GitHub Releases page](https://github.com/thegreensuits/fabric-webstreamer/releases/latest).
 4. **Find your `mods` folder**:
@@ -42,7 +42,7 @@ This is the most reliable method and the one the mod is built/tested against.
 
    (Create the `mods` folder if it doesn't exist yet.)
 5. **Copy both `.jar` files** (Fabric API + WebStreamer) into that `mods` folder.
-6. Open the official Minecraft Launcher, select the **fabric-loader-26.1.2** profile, and
+6. Open the official Minecraft Launcher, select the **fabric-loader-26.3** profile, and
    click *Play*.
 7. Join the viewing-party server. If it worked, the server console (staff-side) shows
    "WebStreamer mod detected" for your name — you don't need to do anything else in-game.
@@ -54,8 +54,8 @@ the official launcher at all.
 
 1. Install the [CurseForge App](https://www.curseforge.com/download/app) and sign in.
 2. Go to **Minecraft → My Modpacks/Instances → Create Custom Profile**.
-3. Choose **Minecraft 26.1.2**, loader **Fabric**, and create the instance.
-4. Download the Fabric API `.jar` for 26.1.2 (see link in Option A, step 2) and the
+3. Choose **Minecraft 26.3**, loader **Fabric**, and create the instance.
+4. Download the Fabric API `.jar` for 26.3 (see link in Option A, step 2) and the
    WebStreamer `.jar` from the
    [GitHub Releases page](https://github.com/thegreensuits/fabric-webstreamer/releases/latest).
 5. On the instance page, open the **Mods** tab → **Add File** (or drag-and-drop) and add both
@@ -72,8 +72,8 @@ Lunar Client supports adding your own Fabric mods on some profiles via **Setting
 Add Mod**, but Lunar typically takes time to support brand-new Minecraft versions and loader
 releases.
 
-1. Open Lunar Client and check whether a **26.1.2 Fabric** profile is available under
-   **Version**. If 26.1.2 isn't listed yet, Lunar hasn't caught up — use Option A or B instead.
+1. Open Lunar Client and check whether a **26.3 Fabric** profile is available under
+   **Version**. If 26.3 isn't listed yet, Lunar hasn't caught up — use Option A or B instead.
 2. If it is available, select that profile, go to **Mods**, and use **Add Mod** (or the folder
    icon) to import the Fabric API `.jar` and the WebStreamer `.jar` (same two files as above).
 3. Check **Settings → Java Runtime** for that profile and make sure it's set to Java 25+ — if
@@ -84,7 +84,7 @@ releases.
 ## Troubleshooting
 
 - **Game won't start / crash on launch**: almost always a version mismatch — double check
-  Minecraft is exactly 26.1.2, Fabric Loader is ≥ 0.19, and Fabric API is installed (WebStreamer
+  Minecraft is exactly 26.3, Fabric Loader is ≥ 0.20, and Fabric API is installed (WebStreamer
   depends on it).
 - **Joined the server but see no screens**: ask staff to confirm the server sees you as
   "modded" — if not, the mod likely isn't actually loaded (check the `mods` folder / Lunar

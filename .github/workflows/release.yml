@@ -49,5 +49,5 @@ jobs:
           version: ${{ github.ref_name }}
           version-type: release
           loaders: fabric
-          game-versions: "26.1.2"
+          game-versions: "26.3"
           java: "25"

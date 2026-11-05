@@ -10,7 +10,7 @@ totalement inactif tant qu'un serveur ne lui demande rien).
 
 ## Ce dont tu as besoin
 
-- **Version de Minecraft** : 26.1.2
+- **Version de Minecraft** : 26.3
 - **Mod loader** : Fabric
 - **Également requis** : Fabric API (un mod-librairie séparé, très courant)
 - **Java** : 25 ou plus récent
@@ -27,13 +27,13 @@ lancement du jeu quelle condition n'est pas remplie.
 C'est la méthode la plus fiable, et celle sur laquelle le mod est construit/testé.
 
 1. **Installer Fabric Loader** : va sur [fabricmc.net/use](https://fabricmc.net/use),
-   télécharge l'installeur, lance-le, sélectionne la version Minecraft **26.1.2**, puis clique
-   sur *Install*. Cela crée un profil "fabric-loader-26.1.2" dans ton Launcher Minecraft
+   télécharge l'installeur, lance-le, sélectionne la version Minecraft **26.3**, puis clique
+   sur *Install*. Cela crée un profil "fabric-loader-26.3" dans ton Launcher Minecraft
    officiel.
-2. **Installer Fabric API** : télécharge le `.jar` de Fabric API pour la **26.1.2** depuis
+2. **Installer Fabric API** : télécharge le `.jar` de Fabric API pour la **26.3** depuis
    [Modrinth](https://modrinth.com/mod/fabric-api) ou
    [CurseForge](https://www.curseforge.com/minecraft/mc-mods/fabric-api) (choisis le fichier
-   dont la version de jeu indique 26.1.2 et le loader Fabric).
+   dont la version de jeu indique 26.3 et le loader Fabric).
 3. **Télécharger WebStreamer** : récupère le `webstreamer-<version>.jar` depuis la
    [page des Releases GitHub](https://github.com/thegreensuits/fabric-webstreamer/releases/latest).
 4. **Trouver ton dossier `mods`** :
@@ -43,7 +43,7 @@ C'est la méthode la plus fiable, et celle sur laquelle le mod est construit/tes
 
    (Crée le dossier `mods` s'il n'existe pas encore.)
 5. **Copie les deux fichiers `.jar`** (Fabric API + WebStreamer) dans ce dossier `mods`.
-6. Ouvre le Launcher Minecraft officiel, sélectionne le profil **fabric-loader-26.1.2**, puis
+6. Ouvre le Launcher Minecraft officiel, sélectionne le profil **fabric-loader-26.3**, puis
    clique sur *Jouer*.
 7. Rejoins le serveur viewing-party. Si tout fonctionne, la console du serveur (côté staff)
    affichera "WebStreamer mod detected" pour ton nom — tu n'as rien d'autre à faire en jeu.
@@ -55,8 +55,8 @@ besoin de toucher au launcher officiel.
 
 1. Installe le [CurseForge App](https://www.curseforge.com/download/app) et connecte-toi.
 2. Va dans **Minecraft → My Modpacks/Instances → Create Custom Profile**.
-3. Choisis **Minecraft 26.1.2**, loader **Fabric**, puis crée l'instance.
-4. Télécharge le `.jar` de Fabric API pour la 26.1.2 (lien à l'étape 2 de l'Option A) ainsi que
+3. Choisis **Minecraft 26.3**, loader **Fabric**, puis crée l'instance.
+4. Télécharge le `.jar` de Fabric API pour la 26.3 (lien à l'étape 2 de l'Option A) ainsi que
    le `.jar` de WebStreamer depuis la
    [page des Releases GitHub](https://github.com/thegreensuits/fabric-webstreamer/releases/latest).
 5. Sur la page de l'instance, ouvre l'onglet **Mods** → **Add File** (ou glisse-dépose) et
@@ -73,8 +73,8 @@ Lunar Client permet d'ajouter tes propres mods Fabric sur certains profils via *
 Mods → Add Mod**, mais Lunar met généralement du temps à prendre en charge une toute nouvelle
 version de Minecraft ou du loader.
 
-1. Ouvre Lunar Client et vérifie si un profil **26.1.2 Fabric** est disponible dans
-   **Version**. Si la 26.1.2 n'apparaît pas encore, Lunar n'a pas encore rattrapé son retard —
+1. Ouvre Lunar Client et vérifie si un profil **26.3 Fabric** est disponible dans
+   **Version**. Si la 26.3 n'apparaît pas encore, Lunar n'a pas encore rattrapé son retard —
    utilise l'Option A ou B à la place.
 2. Si elle est disponible, sélectionne ce profil, va dans **Mods**, puis utilise **Add Mod**
    (ou l'icône de dossier) pour importer le `.jar` de Fabric API et celui de WebStreamer (les
@@ -87,7 +87,7 @@ version de Minecraft ou du loader.
 ## Dépannage
 
 - **Le jeu ne démarre pas / crash au lancement** : presque toujours un problème de version —
-  vérifie bien que Minecraft est exactement en 26.1.2, que Fabric Loader est ≥ 0.19, et que
+  vérifie bien que Minecraft est exactement en 26.3, que Fabric Loader est ≥ 0.20, et que
   Fabric API est installé (WebStreamer en dépend).
 - **Connecté au serveur mais aucun écran visible** : demande au staff de confirmer si le
   serveur te voit comme "modded" — si non, le mod n'est probablement pas réellement chargé

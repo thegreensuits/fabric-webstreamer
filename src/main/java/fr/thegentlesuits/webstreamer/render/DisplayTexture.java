@@ -1,20 +1,16 @@
 package fr.thegentlesuits.webstreamer.render;
 
-import com.mojang.blaze3d.platform.NativeImage;
-import com.mojang.blaze3d.systems.GpuDevice;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.textures.AddressMode;
-import com.mojang.blaze3d.textures.FilterMode;
-import com.mojang.blaze3d.textures.GpuSampler;
-import com.mojang.blaze3d.textures.GpuTexture;
-import com.mojang.blaze3d.textures.TextureFormat;
+import com.mojang.renderpearl.api.GpuFormat;
+import com.mojang.renderpearl.api.device.GpuDevice;
+import com.mojang.renderpearl.api.textures.FilterMode;
+import com.mojang.renderpearl.api.textures.GpuTexture;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import org.bytedeco.javacv.Frame;
 
 import java.nio.ByteBuffer;
-import java.util.OptionalDouble;
 
 /**
  * Dynamic RGBA8 texture receiving decoded video frames. The frame grabber is
@@ -24,8 +20,6 @@ import java.util.OptionalDouble;
 @Environment(EnvType.CLIENT)
 public class DisplayTexture extends AbstractTexture {
 
-    private static GpuSampler sharedSampler;
-
     private final String label;
     private int width = -1;
     private int height = -1;
@@ -34,16 +28,6 @@ public class DisplayTexture extends AbstractTexture {
 
     public DisplayTexture(String label) {
         this.label = label;
-    }
-
-    private static GpuSampler sampler() {
-        if (sharedSampler == null) {
-            sharedSampler = RenderSystem.getDevice().createSampler(
-                    AddressMode.CLAMP_TO_EDGE, AddressMode.CLAMP_TO_EDGE,
-                    FilterMode.LINEAR, FilterMode.LINEAR,
-                    1, OptionalDouble.empty());
-        }
-        return sharedSampler;
     }
 
     /** Uploads a solid-color 1x1 pixel (ABGR byte order: R,G,B,A in memory). */
@@ -88,20 +72,20 @@ public class DisplayTexture extends AbstractTexture {
         GpuDevice device = RenderSystem.getDevice();
 
         if (this.texture == null || this.width != newWidth || this.height != newHeight) {
-            if (this.texture != null) {
-                this.texture.close();
-            }
+            // Closes the view along with the texture, so a resize does not leak the old view.
+            this.releaseTextures();
             this.texture = device.createTexture(this.label,
                     GpuTexture.USAGE_TEXTURE_BINDING | GpuTexture.USAGE_COPY_DST,
-                    TextureFormat.RGBA8, newWidth, newHeight, 1, 1);
+                    GpuFormat.RGBA8_UNORM, newWidth, newHeight, 1, 1);
             this.textureView = device.createTextureView(this.texture);
-            this.sampler = sampler();
+            // The renderer's shared sampler cache, as DynamicTexture uses; nothing to close here.
+            this.sampler = RenderSystem.getSamplerCache().getClampToEdge(FilterMode.LINEAR);
             this.width = newWidth;
             this.height = newHeight;
         }
 
         device.createCommandEncoder().writeToTexture(this.texture, data,
-                NativeImage.Format.RGBA, 0, 0, 0, 0, newWidth, newHeight);
+                0, 0, 0, 0, newWidth, newHeight);
     }
 
 }
